@@ -1,0 +1,131 @@
+.navbar {
+    position: absolute;
+    top: 0;
+    width: 178px;
+    height: 100vh;
+    background-color: #fff;
+    border-right: 1px solid #e5e5e5;
+    white-space: nowrap;
+    background-color: #393a3d;
+    transition: all .22s ease;
+    opacity: 1;
+}
+
+.logo-container {
+    width: 100%;
+    height: 48px;
+    line-height: 48px;
+    padding-left: 24px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.logo-container .menu-container-option {
+    position: absolute;
+    top: 12px;
+    display: inline-block;
+    background-position: -424px -86px;
+}
+
+.logo-container .logo {
+    position: absolute;
+    height: 32px;
+    background-image: url(../../assets/content/img/Logo_Module_TiengViet_White.66947422.svg);
+    width: calc(100% - 58px);
+    background-repeat: no-repeat;
+    background-size: contain;
+    box-sizing: border-box;
+    top: 8px;
+    left: 58px;
+}
+
+
+.navbar .navbar-content {
+    height: calc(100vh - 48px);
+    padding-top: 14px;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: unset;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar .navbar-content .toggle-navbar {
+    display: flex;
+    width: 100%;
+    height: 40px;
+    justify-content: flex-end;
+}
+
+.btn-toggle-navbar {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background-color: #fff;
+}
+
+.btn-toggle-navbar:hover {
+    background-color: #e5e5e5;
+}
+
+.navbar .navbar-content .nav-item {
+    display: flex;
+    padding-left: 16px;
+    height: 42px;
+    line-height: 42px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.22s;
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* .navbar .navbar-content .nav-item:hover {
+    color: #fff !important;
+    background-color: #fff;
+    opacity: .2;
+} */
+
+.navbar .navbar-content .nav-item.router-actived::before {
+    position: absolute;
+    content: "";
+    background-color: #2ca01c;
+    width: 5px;
+    height: 42px;
+    top: 0;
+    left: 0;
+    border-right: 1px solid #000;
+    z-index: 2;
+}
+
+.navbar .navbar-content .nav-item.router-actived::after,
+.navbar .navbar-content .nav-item:hover::after {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 42px;
+    background-color: #fff;
+    opacity: .2;
+}
+
+.navbar .navbar-content .nav-item .nav-item-icon {
+    align-self: center;
+    margin-right: 8px;
+}
+
+.navbar .navbar-content .nav-item .nav-item-icon i {
+    position: absolute;
+    font-size: 16px;
+    margin-top: 2px;
+}
+
+.navbar .navbar-content .nav-item .nav-item-text {
+    color: #fff;
+    font-size: 13px;
+}
+
+.navbar .navbar-content .nav-item.router-actived .nav-item-text {
+    font-weight: 700;
+}

@@ -1,0 +1,36 @@
+.mx-datepicker {
+  width: 100%;
+  font-family: "GoogleSans-Regular";
+}
+
+.mx-datepicker-main {
+  font-family: "GoogleSans-Regular";
+  max-height: 283px;
+}
+
+.mx-calendar-content .mx-table tr th,
+.mx-calendar-content .mx-table tr td {
+  text-align: center;
+}
+
+.mx-calendar-content .mx-table tr td.active {
+  background-color: #2ca01c !important;
+}
+
+.mx-datepicker .mx-input-wrapper .mx-icon-clear,
+.mx-datepicker .mx-input-wrapper .mx-icon-calendar {
+  position: absolute !important;
+  transform: translateY(-50%);
+}
+
+.mx-input-wrapper .mx-input {
+  height: 32px !important;
+}
+
+.mx-input-wrapper .mx-input:hover {
+  border: 1px solid #2ca01c !important;
+}
+
+.mx-input-wrapper .mx-input:focus {
+  border: 1px solid #2ca01c !important;
+}

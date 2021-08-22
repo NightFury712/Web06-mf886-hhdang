@@ -1,0 +1,64 @@
+.header {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    width: calc(100% - 178px);
+    height: 48px;
+    border-bottom: 1px solid #e5e5e5;
+    left: 178px;
+    transition: all 0.22s ease;
+}
+
+.header .logo-site {
+    padding-left: 2px;
+}
+
+.header .logo-site .logo-box {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    margin: 0 10px;
+    box-sizing: border-box;
+}
+
+.header .select-restaurant {
+    margin-left: 16px;
+}
+
+.header .account-info {
+    position: absolute;
+    display: flex;
+    right: 24px;
+    align-items: center;
+}
+
+.header .account-info .mi-bell__nav {
+    margin-right: 20px;
+}
+
+.header .select-option {
+    border: none;
+    outline: none;
+    font-size: 15px;
+}
+
+.header .account-info .account-avatar {
+    background-image: url(../../assets/content/icon/avatar-default.png);
+    width: 30px;
+    height: 30px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.header .account-info .account-name {
+    margin-left: 5px;
+    font-size: 15px;
+    align-self: center;
+    font-weight: bold;
+}
+
+.header .account-info .account-option {
+    margin-left: 5px;
+    align-self: center;
+}

@@ -1,0 +1,35 @@
+.popup-warning-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.popup-warning-content .popup-warning-content__icon {
+    width: 40px;
+    height: 40px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-left: 24px;
+}
+
+.popup-warning-content .popup-warning-content__icon i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 35px;
+    color: #ff0505;
+}
+
+.popup-warning-content .popup-warning-content__text {
+    margin-left: 10px;
+    margin-right: 24px;
+    font-size: 13px;
+    color: #000;
+}
+
+.popup-footer .btn-save {
+    width: 100px;
+    justify-content: center;
+    padding: 0 !important;
+}

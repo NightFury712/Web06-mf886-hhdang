@@ -1,0 +1,82 @@
+
+.trigger-icon {
+  display: flex;
+  padding: 14px 16px 14px 16px;
+  cursor: pointer;
+  justify-content: flex-end;
+}
+
+.trigger-icon .trigger-icon-inner {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+}
+
+.trigger-icon .trigger-icon-inner::before {
+  width: 20px;
+  height: 2px;
+  content: "";
+  background-color: #b8bcc3;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: .15s ease-in-out;
+}
+
+.trigger-icon .trigger-icon-inner .trigger-icon-line {
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 8px;
+  background-color: #b8bcc3;
+  height: 2px;
+  opacity: 1;
+  width: 20px;
+}
+
+.trigger-icon .trigger-icon-inner::after {
+  width: 20px;
+  height: 2px;
+  content: "";
+  background-color: #b8bcc3;
+  position: absolute;
+  top: 16px;
+  left: 0;
+  transition: .15s ease-in-out;
+}
+
+.trigger-icon:hover {
+  opacity: 1;
+}
+
+.trigger-icon:hover .trigger-icon-inner .trigger-icon-line {
+  width: 20px;
+  opacity: 1;
+}
+
+.trigger-icon:hover .trigger-icon-inner::before {
+  width: 16px;
+  transform: translateX(-4px) translateY(13px) rotate(45deg);
+}
+
+.trigger-icon:hover .trigger-icon-inner::after {
+  width: 16px;
+  transform: translateX(-4px) translateY(-13px) rotate(-45deg);
+}
+
+.width-60 {
+  width: 60px !important;
+}
+
+.trigger-icon:hover.actived-trigger .trigger-icon-inner::before {
+  width: 16px;
+  transform: translateX(8px) translateY(13px) rotate(-45deg);
+}
+
+.trigger-icon:hover.actived-trigger .trigger-icon-inner::after {
+  width: 16px;
+  transform: translateX(8px) translateY(-13px) rotate(45deg);
+}

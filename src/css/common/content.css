@@ -1,0 +1,137 @@
+.content {
+    position: absolute;
+    top: 48px;
+    left: 178px;
+    right: 0;
+    bottom: 0;
+    transition: 0.22s;
+    padding: 0 30px 0 20px;
+    background-color: #f4f5f8;
+    box-sizing: border-box;
+}
+
+.content .header-content {
+    display: flex;
+    align-items: center;
+    padding: 24px 30px 24px 0;
+    position: relative;
+}
+
+.content .header-content .title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #111;
+}
+
+.content .header-content .content-feature {
+    position: absolute;
+    right: 0;
+}
+
+.layout-dictionary-body {
+    background-color: #fff;
+    height: calc(100vh - 129px);
+    position: relative;
+    scroll-behavior: smooth;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+.content .paging-bar {
+    display: flex;
+    align-items: center;
+    height: 56px;
+    width: 100%;
+    flex: 3;
+    padding: 0 30px;
+    position: sticky;
+    left: 0;
+    bottom: 0;
+    background-color: #fff;
+    z-index: 5;
+    box-sizing: border-box;
+}
+
+.content .paging-bar .paging-numtotal {
+    flex: 1;
+}
+
+.content .paging-bar .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.content .paging-bar .paging-current-numtotal {
+    display: flex;
+    justify-content: flex-end;
+    flex: 1;
+}
+
+.content .paging-bar .pagination .first-page,
+.content .paging-bar .pagination .pre-page,
+.content .paging-bar .pagination .next-page,
+.content .paging-bar .pagination .last-page
+ {
+     
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background-color: #fff;
+}
+
+.content .paging-bar .pagination .first-page:hover,
+.content .paging-bar .pagination .pre-page:hover,
+.content .paging-bar .pagination .next-page:hover,
+.content .paging-bar .pagination .last-page:hover {
+    border-radius: 4px;
+}
+
+/* .content .paging-bar .pagination .first-page {
+    background-image: url(../../assets/content/icon/btn-firstpage.svg);
+}
+
+.content .paging-bar .pagination .pre-page {
+    background-image: url(../../assets/content/icon/btn-prev-page.svg);
+}
+
+.content .paging-bar .pagination .next-page {
+    background-image: url(../../assets/content/icon/btn-next-page.svg);
+}
+
+.content .paging-bar .pagination .last-page {
+    background-image: url(../../assets/content/icon/btn-lastpage.svg);
+} */
+
+.content .paging-bar .pagination .page-number {
+    display: flex;
+    align-items: center;
+    margin: 0 5px;
+}
+
+
+
+.content .paging-bar .pagination .page-number .page-number-item {
+    display: flex;
+    width: 24px;
+    height: 24px;
+    align-items: center;
+    justify-content: center;
+    /* margin: 0 5px; */
+    color: #000;
+    text-decoration: none;
+}
+
+.pagination .page-number input[type="radio"]:checked ~ label {
+    color: #000 !important;
+    background-color: #fff;
+    border: 1px solid #bbb;
+    font-weight: bold;
+}
+
+.content .paging-bar .pagination .page-number .page-number-item:hover {
+    color: #000;
+    background-color: #fff;
+    cursor: pointer;
+}
+

@@ -1,28 +1,52 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div id="toast"></div>
+    <transition name="fade">
+      <BaseSpinner v-if="spinner" />
+    </transition>
+    <TheHeader />
+    <TheMenu />
+    <BaseButtonMD />
+    <router-view />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TheHeader from './components/layout/TheHeader.vue';
+import TheMenu from './components/layout/TheMenu.vue'
+import { mapGetters, mapActions, mapState } from 'vuex'
+import BaseButtonMD from './components/base/BaseButtonMD.vue';
+import {Pagination} from './js/pagination'
+import BaseSpinner from './components/base/BaseSpinner.vue';
 
 export default {
-  name: 'App',
+  name: "App",
+  mixins: [Pagination],
+  data() {
+    return {
+      sidebarFlag: false,
+    }
+  },
   components: {
-    HelloWorld
+    TheHeader,
+    TheMenu,
+    BaseButtonMD,
+    BaseSpinner
+  },
+  computed: {
+    ...mapGetters("emp", ["allEmployees"]),
+    ...mapState("event", ["dialogFlag", "spinner"])
+  },
+  methods: {
+    ...mapActions("emp", ["loadData"]),
+    ...mapActions("ctm", ["getCustomers"])
+  },
+  async created() {
+    this.$store.state.emp.formRef = {};
   }
-}
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+@import url("./css/common/common.css");
 </style>
