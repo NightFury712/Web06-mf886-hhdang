@@ -29,7 +29,7 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
-import { MISAFormMode } from '../../../Enums/MISAEnums';
+import { MISAFormMode } from '../../Enums/MISAEnums';
 import ClickOutside from "vue-click-outside"
 
 export default {
@@ -95,6 +95,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-@import url("../../../css/common/tablefunction.css");
-@import url("../../../css/common/button.css");
+@import url("../../css/common/tablefunction.css");
+@import url("../../css/common/button.css");
 </style>

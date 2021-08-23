@@ -95,12 +95,11 @@ import {Pagination} from "../../js/pagination"
 import {FormatFunction} from "../../js/common"
 import {Sorting} from "../../js/sorting"
 import BasePagination from '../base/BasePagination.vue';
-import {  MISAFormMode } from '../../Enums/MISAEnums'
+import {  MISACode, MISAFormMode } from '../../Enums/MISAEnums'
 import { Popup } from '../../resources/MISAConst'
 import EmployeeDetail from '../../views/dictionary/employee/EmployeeDetail.vue';
-import BaseTableDropdown from '../base/dropdown/BaseTableDropdown.vue';
-// import BaseSpinner from '../base/BaseSpinner.vue';
-import BasePopupInfo from '../base/popup/BasePopupInfo.vue';
+import BaseTableDropdown from '../base/BaseTableDropdown.vue';
+import BasePopupInfo from '../base/BasePopupInfo.vue';
 
 export default {
   name: "ThePage",
@@ -111,7 +110,6 @@ export default {
     BasePagination,
     EmployeeDetail,
     BaseTableDropdown,
-    // BaseSpinner,
     BasePopupInfo,
   },
   data() {
@@ -340,19 +338,20 @@ export default {
     // Hiển thị loading cho trang khi call api
     this.showSpinner();
     // Call api phân trang nhân viên
-    await this.getPageNum();
+    const response = await this.getPageNum();
     // Ẩn loading khi call api thành công
-    // if(response) {
-    //   if(response.MISACode === MISACode.Exception) {
-    //     this.toast({
-    //       message: response.Messenger,
-    //       type: 'error',
-    //       duration: 2000
-    //     });
-    //   } else {
-    //     }
-    // }
+    if(response) {
+      if(response.MISACode === MISACode.Exception) {
         this.hideSpinner();
+        this.toast({
+          message: response.Messenger,
+          type: 'error',
+          duration: 2000
+        });
+      } 
+    } else {
+      this.hideSpinner();
+    }
     // Call api lấy dữ liệu phòng ban
     await this.loadDataDepartment();
 

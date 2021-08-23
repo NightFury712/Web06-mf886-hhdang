@@ -288,8 +288,8 @@ import { Pagination } from '../../../js/pagination'
 import { MISACode, MISAFormMode, Gender, GenderName } from '../../../Enums/MISAEnums'
 import { Popup, DisplayName, Validate } from '../../../resources/MISAConst'
 import BaseRadioButton from '../../../components/base/BaseRadioButton.vue';
-import BaseCheckbox from '../../../components/base/checkbox/BaseCheckbox.vue';
-import BasePopupInfo from '../../../components/base/popup/BasePopupInfo.vue';
+import BaseCheckbox from '../../../components/base/BaseCheckbox.vue';
+import BasePopupInfo from '../../../components/base/BasePopupInfo.vue';
 
 
 
@@ -782,7 +782,6 @@ export default {
         }
       })
       this.currentEmployee = this.initDataObj();
-      console.log(this.currentEmployee);
     },
     /**
      * So sánh dữ liệu ban đầu và dữ liệu sau khi nhập liệu

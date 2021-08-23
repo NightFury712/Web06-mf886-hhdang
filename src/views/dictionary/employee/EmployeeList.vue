@@ -40,7 +40,7 @@
 <script>
 import { mapActions, mapState } from "vuex";
 import BaseTableFunction from "../../../components/base/BaseTableFunction.vue";
-import Skeleton from '../../../components/base/skeleton/Skeleton.vue';
+import Skeleton from '../../../components/base/Skeleton.vue';
 import { FormatFunction } from "../../../js/common";
 
 export default {

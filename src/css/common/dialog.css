@@ -7,7 +7,7 @@
     background-color: #fff;
     border-radius: 4px;
     width: 900px;
-    height: 615px;
+    height: 600px;
     /* max-height: calc(100% - 48px); */
     box-shadow: 0 0 10px gray;
     box-sizing: border-box;
@@ -152,7 +152,7 @@
     flex-direction: column;
     position: absolute;
     left: 32px;
-    bottom: 30px;
+    bottom: 20px;
 }
 
 .dialog-footer .divide {

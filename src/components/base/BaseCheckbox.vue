@@ -26,6 +26,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-@import url("../../../css/common/checkboxcustom.css");
+@import url("../../css/common/checkboxcustom.css");
 
 </style>
