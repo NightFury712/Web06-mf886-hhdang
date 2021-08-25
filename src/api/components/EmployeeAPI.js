@@ -1,6 +1,6 @@
   
-import BaseAPI from '../base/BaseAPI';
-import BaseAPIConfig from '../base/BaseAPIConfig';
+import BaseAPI from '../base/baseapi';
+import BaseAPIConfig from '../base/baseapiconfig';
 
 class EmployeeAPI extends BaseAPI {
   constructor(){

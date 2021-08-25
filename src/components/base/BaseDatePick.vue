@@ -9,7 +9,8 @@
       }"
       :valueType="valueType"
       :disabled-date="(date) => date > new Date()"
-    ></date-picker>
+    >
+    </date-picker>
 </template>
 
 <script>
@@ -31,7 +32,7 @@ export default {
     },
     dateBinding: {
       type: String,
-      default: ''
+      default: null
     }
   },
   watch: {

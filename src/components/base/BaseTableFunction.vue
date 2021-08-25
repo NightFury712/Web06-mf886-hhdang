@@ -21,9 +21,12 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-import { MISAFormMode } from '../../Enums/MISAEnums';
+import { MISAFormMode } from '../../enumerables/MISAEnums';
+import {Toast} from "../../js/toast"
+
 export default {
   name: "BaseTableFunction",
+  mixins: [Toast],
   props: {
     drdId: String,
     index: Number
@@ -49,7 +52,10 @@ export default {
      * Author: HHDang (16/08/2021)
      */
     async showTableDrd() {
-      await this.getEmployeeById(this.drdId);
+      // Lấy thông tin nhân viên theo Id
+      const res = await this.getEmployeeById(this.drdId);
+      // Thông báo lỗi (nếu có) bằng toast 
+      this.initErrorToast(res);
       if (this.tableDrdId !== this.drdId) {
         // Lấy vị trí để hiển thị dropdown
         const info = document.querySelector(`.table-dropdown .btn-index-${this.index}`).getBoundingClientRect();
@@ -76,7 +82,10 @@ export default {
       // Chuyển trạng thái form sang sửa
       this.formMode.status = MISAFormMode.Update;
       this.showSpinner();
-      await this.getEmployeeById(this.drdId);
+      // Lấy thông tin nhân viên theo Id
+      const res = await this.getEmployeeById(this.drdId);
+      // Thông báo lỗi (nếu có) bằng toast 
+      this.initErrorToast(res);
       this.hideSpinner();
       this.toggleDialog();
     },

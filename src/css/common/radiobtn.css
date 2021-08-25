@@ -41,6 +41,7 @@
 
 .radio:focus .radio-radio {
   border: 1px solid #2ca01c !important;
+  box-shadow: 0 0 3px #2ca01c;
 }
 
 .radio:focus .radio-title {

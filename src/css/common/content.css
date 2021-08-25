@@ -5,7 +5,7 @@
     right: 0;
     bottom: 0;
     transition: 0.22s;
-    padding: 0 20px 20px 20px;
+    padding: 0 20px 15px 20px;
     background-color: #f4f5f8;
     box-sizing: border-box;
 }
@@ -30,11 +30,12 @@
 
 .layout-dictionary-body {
     background-color: #fff;
-    height: calc(100vh - 149px);
+    height: calc(100vh - 144px);
     position: relative;
     scroll-behavior: smooth;
     box-sizing: border-box;
     overflow: auto;
+    /* box-shadow: 0 0 5px #bbb; */
 }
 
 .content .paging-bar {

@@ -3,10 +3,15 @@
     box-sizing: border-box;
     position: relative;
     border: 1px solid #bbb;
-    border-radius: 4px;
+    border-radius: 2px;
 }
 
 .select-box:hover {
+    border: 1px solid #2ca01c;
+}
+
+.select-box:focus,
+.formadd-select-box:focus-within {
     border: 1px solid #2ca01c;
 }
 
@@ -15,7 +20,7 @@
     box-sizing: border-box;
     position: relative;
     border: 1px solid #bbb;
-    border-radius: 4px;
+    border-radius: 2px;
 }
 
 .formadd-select-box:hover {
@@ -42,7 +47,7 @@
 .formadd-select-box input {
     border: none;
     margin: 0 !important;
-    /* height: 38px !important; */
+    height: 30px !important;
 }
 
 .formadd-select-box input:hover,
@@ -57,7 +62,7 @@
 .btn-select-box .select-box-icon {
     position: absolute;
     right: 10px;
-    top: 9px;
+    top: 8px;
 }
 
 .btn-select-box .select-box-icon .arrow-dropdown--close {
@@ -80,6 +85,10 @@
     box-sizing: border-box;
     background-color: #fff;
     width: 100%;
+}
+
+.combobox-pagination {
+    margin-right: 10px;
 }
 
 .combobox-box .combobox-item {

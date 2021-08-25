@@ -43,6 +43,15 @@ export const Toast = {
           clearTimeout(autoRemoveId);
         }
       }
+    },
+    initErrorToast(response) {
+      if(response) {
+        this.toast({
+          message: response.Messenger,
+          type: 'error',
+          duration: 2000
+        });
+      }
     }
   },
 }

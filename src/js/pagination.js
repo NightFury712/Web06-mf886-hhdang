@@ -4,43 +4,43 @@ import { FormatFunction } from "./common";
 export const Pagination = {
   computed: {
     ...mapState("emp", ["formRef", "employeeFilter", "pageInfo"]),
-    ...mapState("ctm", ["ctmPageInfo"]),
+    // ...mapState("ctm", ["ctmPageInfo"]),
   },
   mixins: [FormatFunction],
   methods: {
     ...mapActions("emp", ["setPageArr", "filterData"]),
-    ...mapActions("ctm", ["setCtmPageArr", "filterCustomerData"]),
+    // ...mapActions("ctm", ["setCtmPageArr", "filterCustomerData"]),
     /**
      * Hàm phân trang cho trang nhân viên
      * Author: HHDang (17/08/2021)
      */
     async getPageNum() {
       // call api paging
-      await this.filterData();
+      const response = await this.filterData();
 
       // Tạo mảng số trang (hiển thị 5 trang)
       let arr = this.initPagingArray(this.pageInfo);
       this.setPageArr(arr);
-
+      return response;
     },
     /**
      * Hàm phân trang cho trang khách hàng 
      */
-    async getCtmFilterPaging()  {
-      const customerGroupId = null
+    // async getCtmFilterPaging()  {
+    //   const customerGroupId = null
 
-      // Tạo thông tin phân trang
-      const pageInfomation = {
-        customerGroupId: customerGroupId
-      }
+    //   // Tạo thông tin phân trang
+    //   const pageInfomation = {
+    //     customerGroupId: customerGroupId
+    //   }
 
-      // call api paging 
-      await this.filterCustomerData(pageInfomation);
+    //   // call api paging 
+    //   await this.filterCustomerData(pageInfomation);
 
-      // Tạo mảng số trang (hiển thị 5 trang)
-      let arr = this.initPageArray(this.ctmPageInfo);
-      this.setCtmPageArr(arr);
-    },
+    //   // Tạo mảng số trang (hiển thị 5 trang)
+    //   let arr = this.initPageArray(this.ctmPageInfo);
+    //   this.setCtmPageArr(arr);
+    // },
     /**
      * Hàm khởi tạo mảng số trang (hàm cũ)
      * @param {Object} pageInfo Thông tin phân trang 

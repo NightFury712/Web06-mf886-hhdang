@@ -133,5 +133,6 @@ export default {
 </script>
 
 <style lang="css">
-@import url("../../css/popup/pop-up-info.css");
+@import url("../../css/common/pop-up-info.css");
+@import url("../../css/common/pop-up.css");
 </style>

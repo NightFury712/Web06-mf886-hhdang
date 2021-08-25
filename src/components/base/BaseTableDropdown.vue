@@ -29,7 +29,7 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
-import { MISAFormMode } from '../../Enums/MISAEnums';
+import { MISAFormMode } from '../../enumerables/MISAEnums';
 import ClickOutside from "vue-click-outside"
 
 export default {
@@ -59,19 +59,23 @@ export default {
   methods: {
     ...mapActions("event", [
       "toggleDialog",
-      "hideDrd"
+      "hideDrd",
     ]),
+    ...mapActions("emp", ["getNewEmployeeCode"]),
     /**
      * Hàm xử lý khi nhấn nút nhân bản
      * Author: HHDang (19/08/2021)
      */
-    btnCloneClick() {
-      // Chuyển trạng thái form sang thêm mới
-      this.formMode.status = MISAFormMode.Save;
-      // Mở form nhập liệu
-      this.toggleDialog();
+    async btnCloneClick() {
       // Đóng dropdown của table
       this.hideDrd("table");
+      // Chuyển trạng thái form sang thêm mới
+      this.formMode.status = MISAFormMode.Save;
+      // Lấy mã nhân viên mới
+      await this.getNewEmployeeCode();
+      // Mở form nhập liệu
+      this.toggleDialog();
+      
     },
     /**
      * Hàm xử lý khi nhất nút xóa

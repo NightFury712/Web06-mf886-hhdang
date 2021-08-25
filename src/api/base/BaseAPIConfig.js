@@ -1,4 +1,4 @@
-import APIConfig from '../config/APIConfig';
+import APIConfig from '../config/apiconfig';
 import axios from 'axios';
 
 var BaseAPIConfig = axios.create({

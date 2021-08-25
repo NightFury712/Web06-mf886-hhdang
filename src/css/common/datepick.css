@@ -15,6 +15,7 @@
 
 .mx-calendar-content .mx-table tr td.active {
   background-color: #2ca01c !important;
+  color: #fff !important;
 }
 
 .mx-datepicker .mx-input-wrapper .mx-icon-clear,
@@ -33,4 +34,26 @@
 
 .mx-input-wrapper .mx-input:focus {
   border: 1px solid #2ca01c !important;
+}
+
+.mx-table .mx-date-row .today {
+  color: #2ca01c ;
+
+}
+
+.mx-table thead tr th {
+  color: #000;
+  font-weight: bold;
+}
+
+.mx-table tbody tr .cell {
+  color: #000;
+}
+
+.mx-btn {
+  color: #2ca01c !important;
+}
+
+.mx-datepicker-main {
+  z-index: 255 !important;
 }

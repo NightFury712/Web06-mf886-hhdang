@@ -95,8 +95,8 @@ import {Pagination} from "../../js/pagination"
 import {FormatFunction} from "../../js/common"
 import {Sorting} from "../../js/sorting"
 import BasePagination from '../base/BasePagination.vue';
-import {  MISACode, MISAFormMode } from '../../Enums/MISAEnums'
-import { Popup } from '../../resources/MISAConst'
+import { MISAFormMode } from '../../enumerables/MISAEnums'
+import { Popup, Messenger } from '../../resources/MISAConst'
 import EmployeeDetail from '../../views/dictionary/employee/EmployeeDetail.vue';
 import BaseTableDropdown from '../base/BaseTableDropdown.vue';
 import BasePopupInfo from '../base/BasePopupInfo.vue';
@@ -146,7 +146,7 @@ export default {
           center: true,
           style: { minWidth: 150}
         },
-        { fieldName: "PhoneNumber", content: "Số điện thoại", style: { minWidth: 150}},
+        { fieldName: "PhoneNumber", content: "DT di động", style: { minWidth: 150}},
         { fieldName: "IdentityNumber", content: "Số CMND", style: { minWidth: 200}},
         { fieldName: "EmployeePosition", content: "Chức danh", style: { minWidth: 200}},
         { fieldName: "DepartmentId", content: "Tên đơn vị", style: { minWidth: 200}},
@@ -232,9 +232,10 @@ export default {
     // Hiển thị form thêm nhân viên
     toggleDialog: async function() {
       this.setEmployee(null)
+      // this.showSpinner();
       this.showLoadingBtn("add");
       // Call api lấy mã nhân viên mới
-      // await this.getNewEmployeeCode();
+      await this.getNewEmployeeCode();
       this.hideLoadingBtn("add");
       // Chuyển trạng thái form thành thêm mới
       this.formMode.status = MISAFormMode.Save;
@@ -253,14 +254,14 @@ export default {
       if(statusCode === 200) {
         // Thành công
         this.toast({
-          message: "Xóa nhân viên thành công!",
+          message: Messenger.Delete.success,
           type: 'success',
           duration: 2000
         })
       } else {
         // Thất bại
         this.toast({
-          message: "Đã có lỗi xảy ra khi xóa bản ghi!",
+          message: Messenger.Delete.error,
           type: 'error',
           duration: 2000
         })
@@ -268,22 +269,17 @@ export default {
     },
 
     // Hiển thị popup thông báo xóa
-    showPopupDel() {
-      this.popupDelManyInfo.content = `Bạn có chắc muốn xóa ${this.empDeleteList.length} nhân viên này hay không?`;
-      this.togglePopup(this.popupDelManyInfo.flagName);
-    },
+    // showPopupDel() {
+    //   this.popupDelManyInfo.content = `Bạn có chắc muốn xóa ${this.empDeleteList.length} nhân viên này hay không?`;
+    //   this.togglePopup(this.popupDelManyInfo.flagName);
+    // },
     // Hàm lọc dữ liệu tìm kiếm
     async inputSearch() {
       let data = this.inputData.trim();
       this.showSkeleton();
       this.setPageNum(0);
-      if(data == '') {
-        this.setEmployeeFilter('nv');
-        await this.getPageNum();
-      } else {
-        this.setEmployeeFilter(data);
-        await this.getPageNum();
-      }
+      this.setEmployeeFilter(data);
+      await this.getPageNum();
       this.hideSkeleton();
     },
     // Hàm load lại dữ liệ khi nhấn nút reload
@@ -327,7 +323,7 @@ export default {
      * Author: HHDang (18/08/2021)
      */
     btnDeleteClick() {
-      this.popupInfo.title = `Bạn có chắc muốn xóa nhân viên <${this.employee.EmployeeCode}> hay không?`
+      this.popupInfo.title = Messenger.Delete.title.format(this.employee.EmployeeCode);
       this.togglePopup(this.popupInfo.flagName);
     },
   },
@@ -340,20 +336,11 @@ export default {
     // Call api phân trang nhân viên
     const response = await this.getPageNum();
     // Ẩn loading khi call api thành công
-    if(response) {
-      if(response.MISACode === MISACode.Exception) {
-        this.hideSpinner();
-        this.toast({
-          message: response.Messenger,
-          type: 'error',
-          duration: 2000
-        });
-      } 
-    } else {
-      this.hideSpinner();
-    }
+    this.initErrorToast(response)
+    this.hideSpinner();
     // Call api lấy dữ liệu phòng ban
-    await this.loadDataDepartment();
+    const res = await this.loadDataDepartment();
+    this.initErrorToast(res);
 
   },
 };

@@ -2,6 +2,7 @@
   <div
     :class="[
       cbxInfo.type == 'formadd' ? 'formadd-select-box' : 'select-box',
+      'combobox-' + cbxInfo.ref,
       {'border-red': !formFlag[cbxInfo.ref]}
     ]"
     v-click-outside="clickOutSide"
@@ -141,14 +142,14 @@ export default {
   },
   methods: {
     
-    ...mapActions("event", ["showCbx", "hideCbx", "setCbxFlagTrue"]),
+    ...mapActions("event", ["showCbx", "hideCbx"]),
     ...mapActions("emp", ["addFormRef"]),
     /**
      * Đóng combobox khi click ra ngoài
      * Author: HHDang (16/08/2021)
      */
     clickOutSide() {
-      this.setCbxFlagTrue(this.cbxInfo.flagName);
+      this.hideCbx(this.cbxInfo.flagName);
     },
     /**
      * Ẩn hiện combobox và focus vào thẻ input của cbx
@@ -184,7 +185,7 @@ export default {
         this.$refs[this.cbxInfo.ref].value
       );
       // Hiển thị tooltip thông báo nếu dữ liệu nhập không hợp lệ
-      if(this.$refs[this.cbxInfo.ref].value.trim() == '') {
+      if(this.$refs[this.cbxInfo.ref].value?.trim() == '') {
         this.tooltipText = `${DisplayName[this.cbxInfo.ref]} ${Validate.Required}`;
         return;
       }

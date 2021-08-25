@@ -1,12 +1,10 @@
-import EmployeeAPI from "../../api/components/EmployeeAPI";
-import DepartmentAPI from "../../api/components/DepartmentAPI"
-import PositionAPI from "../../api/components/PositionAPI"
+import EmployeeAPI from "../../api/components/employeeapi";
+import DepartmentAPI from "../../api/components/departmentapi"
 
 
 const state = {
   employees: [],
   departments: [],
-  positions: [],
   employee: null,
   sortFlag: {
     EmployeeCode: false,
@@ -120,33 +118,37 @@ const actions = {
    * Author: HHDang (17/7/2021)
    */
   async getEmployeeById({commit}, id) {
-    const res = await EmployeeAPI.getById(id);
-    commit("getEmployeeById", res.data) 
+    try {
+      const res = await EmployeeAPI.getById(id);
+      commit("getEmployeeById", res.data);
+    } catch (error) {
+      return error.response.data;
+    }
   },
   /**
    * Load dữ liệu phòng ban
    * Author: HHDang (15/7/2021)
    */
   async loadDataDepartment({ commit }) {
-    const response = await DepartmentAPI.getAll();
-    commit("loadDataDepartment", response.data);
-  },
-  /**
-   * Load dữ liệu vị trí công việc
-   * Author: HHDang (15/7/2021)
-   */
-  async loadDataPosition({ commit }) {
-    const response = await PositionAPI.getAll();
-    commit("loadDataPosition", response.data);
+    try {
+      const response = await DepartmentAPI.getAll();
+      commit("loadDataDepartment", response.data);
+    } catch (error) {
+      return error.response.data;
+    }
   },
   /**
    * Lấy mã nhân viên mới
    * Author: HHDang (19/7/2021)
    */
   async getNewEmployeeCode({commit}) {
-    const res = await EmployeeAPI.getNewEmployeeCode();
-    commit("getNewEmployeeCode", res.data)
-    return res.data;
+    try {
+      const res = await EmployeeAPI.getNewEmployeeCode();
+      commit("getNewEmployeeCode", res.data)
+      return res.data;
+    } catch (error) {
+      return error.response.data;
+    }
   },
   /**
    * Hàm lọc dữ liệu và phân trang
@@ -173,7 +175,8 @@ const actions = {
         commit("setNotFound", false);
       }
     } catch (error) {
-      return error.response.data
+      commit("setNotFound", true);
+      return error.response.data;
     }
     
   },
@@ -210,9 +213,6 @@ const actions = {
   setDepartmentFilter({commit}, id) {
     commit("setDepartmentFilter", id);
   },
-  setPositionFilter({commit}, id) {
-    commit("setPositionFilter", id);
-  },
   toggleSortFlag({commit}, flagName) {
     commit("toggleSortFlag", flagName)
   }
@@ -236,9 +236,6 @@ const mutations = {
   },
   loadDataDepartment(state, departments) {
     state.departments = departments;
-  },
-  loadDataPosition(state, positions) {
-    state.positions = positions;
   },
   getNewEmployeeCode(state, code) {
     state.newEmployeeCode = code;
@@ -293,9 +290,6 @@ const mutations = {
   },
   setDepartmentFilter(state, id) {
     state.pageInfo.departmentId = id
-  },
-  setPositionFilter(state, id) {
-    state.pageInfo.positionId = id;
   },
   clearDeleteList(state) {
     state.empDeleteList = [];

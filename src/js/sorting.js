@@ -12,10 +12,9 @@ export const Sorting = {
     sortTable(arr, fieldName) {
       switch(fieldName) {
         case "Gender": 
-          return arr.sort((firstItem, secondItem) => this.sortNumber(firstItem[fieldName], secondItem[fieldName]));
-        case "WorkStatus": 
-          return arr.sort((firstItem, secondItem) => this.sortNumber(firstItem[fieldName], secondItem[fieldName]));
-        case "Salary": 
+        case "PhoneNumber": 
+        case "BankAccountNumber": 
+        case "IdentityNumber":
           return arr.sort((firstItem, secondItem) => this.sortNumber(firstItem[fieldName], secondItem[fieldName]));
         case "EmployeeCode": 
           return arr.sort((firstItem, secondItem) => this.sortEmployeeCode(firstItem[fieldName], secondItem[fieldName]));

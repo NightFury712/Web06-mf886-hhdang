@@ -12,7 +12,7 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-import {MISAFormMode} from "../../Enums/MISAEnums"
+import {MISAFormMode} from "../../enumerables/MISAEnums"
 import ClickOutside from "vue-click-outside"
 
 export default {

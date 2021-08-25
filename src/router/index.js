@@ -2,8 +2,8 @@ import Vue from 'vue'
 import VueRouter from "vue-router";
 
 import ThePage from "../components/layout/ThePage.vue"
-import ThePageCustomer from "../components/layout/ThePageCustomer.vue"
-// import CustomerList from "../views/dictionary/customer/CustomerList.vue"
+import PageDeveloping from "../views/dictionary/developing/PageDeveloping.vue"
+import { RouterLinkInfo } from "../resources/MISAConst"
 
 
 
@@ -12,17 +12,84 @@ Vue.use(VueRouter)
 
 const routers = [
   {
-    path: '/employee',
-    name: 'ThePageEmployee',
-    component: ThePage,
-    meta: { title: 'Trang nhân viên' },
+    path: RouterLinkInfo.Dashboard.href,
+    name: RouterLinkInfo.Dashboard.name,
+    component: PageDeveloping,
+    meta: { title: RouterLinkInfo.Dashboard.title },
   },
   {
-    path: '/customer',
-    name: 'ThePageCustomer',
-    component: ThePageCustomer,
-    meta: { title: 'Trang khách hàng' },
-  }
+    path: RouterLinkInfo.Cash.href,
+    name: RouterLinkInfo.Cash.name,
+    component: PageDeveloping,
+    meta: { title: RouterLinkInfo.Cash.title },
+  },
+  {
+    path: RouterLinkInfo.Bank.href,
+    name: RouterLinkInfo.Bank.name,
+    component: PageDeveloping,
+    meta: { title: RouterLinkInfo.Bank.title },
+  },
+  {
+    path: RouterLinkInfo.Pu.href,
+    name: RouterLinkInfo.Pu.name,
+    component: PageDeveloping,
+    meta: { title: RouterLinkInfo.Pu.title },
+  },
+  {
+    path: RouterLinkInfo.Sale.href,
+    name: RouterLinkInfo.Sale.name,
+    component: PageDeveloping,
+    meta: { title: RouterLinkInfo.Sale.title },
+  },
+  {
+    path: RouterLinkInfo.Invoice.href,
+    name: RouterLinkInfo.Invoice.name,
+    component: PageDeveloping,
+    meta: { title: RouterLinkInfo.Invoice.title },
+  },
+  {
+    path: RouterLinkInfo.Stock.href,
+    name: RouterLinkInfo.Stock.name,
+    component: PageDeveloping,
+    meta: { title: RouterLinkInfo.Stock.title },
+  },
+  {
+    path: RouterLinkInfo.Tools.href,
+    name: RouterLinkInfo.Tools.name,
+    component: PageDeveloping,
+    meta: { title: RouterLinkInfo.Tools.title },
+  },
+  {
+    path: RouterLinkInfo.FixedAssets.href,
+    name: RouterLinkInfo.FixedAssets.name,
+    component: PageDeveloping,
+    meta: { title: RouterLinkInfo.FixedAssets.title },
+  },
+  {
+    path: RouterLinkInfo.Employee.href,
+    name: RouterLinkInfo.Employee.name,
+    component: ThePage,
+    meta: { title: RouterLinkInfo.Employee.title },
+  },
+  {
+    path: RouterLinkInfo.Tax.href,
+    name: RouterLinkInfo.Tax.name,
+    component: PageDeveloping,
+    meta: { title: RouterLinkInfo.Tax.title },
+  },
+  {
+    path: RouterLinkInfo.Price.href,
+    name: RouterLinkInfo.Price.name,
+    component: PageDeveloping,
+    meta: { title: RouterLinkInfo.Price.title },
+  },
+  {
+    path: RouterLinkInfo.General.href,
+    name: RouterLinkInfo.General.name,
+    component: PageDeveloping,
+    meta: { title: RouterLinkInfo.General.title },
+  },
+  
 ]
 
 const router = new VueRouter({

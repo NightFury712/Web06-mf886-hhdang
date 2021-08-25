@@ -1,5 +1,7 @@
 <template>
-  <tr @contextmenu.prevent="showMDBtn($event)" @click="empSelected()">
+  <tr 
+    @click="empSelected()"
+  >
     <td class="out-left-white-16"></td>
     <td class="td-check-box">
       <input
@@ -22,7 +24,7 @@
       :style="sizeTdStyle(th)"
       :key="idx"
     >
-      <Skeleton v-if="skeleton" />
+      <BaseSkeleton v-if="skeleton" />
       <template v-if="!skeleton">
         {{ formatOption(th.fieldName, employee[th.fieldName], 1) }}
       </template>
@@ -40,11 +42,11 @@
 <script>
 import { mapActions, mapState } from "vuex";
 import BaseTableFunction from "../../../components/base/BaseTableFunction.vue";
-import Skeleton from '../../../components/base/Skeleton.vue';
+import BaseSkeleton from '../../../components/base/BaseSkeleton.vue';
 import { FormatFunction } from "../../../js/common";
 
 export default {
-  components: { BaseTableFunction, Skeleton },
+  components: { BaseTableFunction, BaseSkeleton },
   name: "EmployeeList",
   emits: ["empSelected", "sizeTdStyle"],
   mixins: [FormatFunction],

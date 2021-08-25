@@ -1,5 +1,5 @@
 import {mapState} from 'vuex'
-import { Gender, GenderName } from '../Enums/MISAEnums';
+import { Gender, GenderName } from '../enumerables/MISAEnums';
 
 export const FormatFunction = {
   computed: {
@@ -9,32 +9,33 @@ export const FormatFunction = {
     /**
      * Format dữ liệu ngày tháng sang ngày/tháng/năm
      * Author: HHDang (6/7/2021)
-     * @param {1991-07-09T00:00:00} date
+     * @param {Date} date
      * @returns 09/07/1991
      */
-    formatDate(date, option) {
-      date = new Date(date);
-      if (Number.isNaN(date.getTime())) {
+    formatDate(val, option) {
+      if(val == null || val == '') {
         return null;
-      } else {
-        let day = date.getDate();
-        let month = date.getMonth() + 1;
-        let year = date.getFullYear();
-        day = day < 10 ? "0" + day : day;
-        month = month < 10 ? "0" + month : month;
-        if (option == 1) {
-          return `${day}/${month}/${year}`;
-        } else {
-          return `${year}-${month}-${day}`;
-        }
       }
+      let date = new Date(val);
+      
+      let day = date.getDate();
+      let month = date.getMonth() + 1;
+      let year = date.getFullYear();
+      day = day < 10 ? "0" + day : day;
+      month = month < 10 ? "0" + month : month;
+      if (option == 1) {
+        return `${day}/${month}/${year}`;
+      } else {
+        return `${year}-${month}-${day}`;
+      }
+      
     },
 
     /**
      * Format dữ liệu giới tính
      * Author: HHDang (6/7/2021)
-     * @param {1 || 2 || 3} gender
-     * @returns Nữ || Nam || Giới tính khác
+     * @param {Number} gender mã giới tính
+     * @returns Tên giới tính
      */
     formatGender(gender, option) {
       if (option == 1) {

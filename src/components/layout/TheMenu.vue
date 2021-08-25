@@ -1,124 +1,73 @@
 <template>
   <div>
-    
-    <div class="navbar" :class="{navbarSizeHide: sidebarFlag}">
+    <div class="navbar" :class="{ navbarSizeHide: sidebarFlag }">
       <BaseTrigger
         :triggerFlag="sidebarFlag"
         @triggerClick="triggerClick()"
-        :class="[{'hidden': !sidebarFlag}]"
+        :class="[{ hidden: !sidebarFlag }]"
       />
-      <div :class="['logo-container', {'hidden': sidebarFlag, 'shown': !sidebarFlag}]">
-        <div class="mi mi-24 menu-container-option">
-        </div>
-        <div class="logo">
-        </div>
+      <div
+        :class="[
+          'logo-container',
+          { hidden: sidebarFlag, shown: !sidebarFlag },
+        ]"
+      >
+        <div class="mi mi-24 menu-container-option"></div>
+        <div class="logo"></div>
       </div>
       <div class="navbar-content">
-        <BaseRouterLink 
+        <BaseRouterLink
           :flag="sidebarFlag"
-          :routerInfo="{
-            href: '/dashboard',
-            icon: 'mi-sidebar-dashboard',
-            title: 'Tổng quan'
-          }"
+          :routerInfo="RouterLinkInfo.Dashboard"
         />
-        <BaseRouterLink 
+        <BaseRouterLink
           :flag="sidebarFlag"
-          :routerInfo="{
-            href: '/cash',
-            icon: 'mi-sidebar-cash',
-            title: 'Tiền mặt'
-          }"
+          :routerInfo="RouterLinkInfo.Cash"
         />
-        <BaseRouterLink 
+        <BaseRouterLink
           :flag="sidebarFlag"
-          :routerInfo="{
-            href: '/bank',
-            icon: 'mi-sidebar-bank',
-            title: 'Tiền gửi'
-          }"
+          :routerInfo="RouterLinkInfo.Bank"
         />
-        <BaseRouterLink 
+        <BaseRouterLink
           :flag="sidebarFlag"
-          :routerInfo="{
-            href: '/pu',
-            icon: 'mi-sidebar-pu',
-            title: 'Mua hàng'
-          }"
+          :routerInfo="RouterLinkInfo.Pu"
         />
-        <BaseRouterLink 
+        <BaseRouterLink
           :flag="sidebarFlag"
-          :routerInfo="{
-            href: '/sale',
-            icon: 'mi-sidebar-sale',
-            title: 'Bán hàng'
-          }"
+          :routerInfo="RouterLinkInfo.Sale"
         />
-        <BaseRouterLink 
+        <BaseRouterLink
           :flag="sidebarFlag"
-          :routerInfo="{
-            href: '/invoice',
-            icon: 'mi-sidebar-invoice',
-            title: 'Quản lý hóa đơn'
-          }"
+          :routerInfo="RouterLinkInfo.Invoice"
         />
-        <BaseRouterLink 
+        <BaseRouterLink
           :flag="sidebarFlag"
-          :routerInfo="{
-            href: '/stock',
-            icon: 'mi-sidebar-stock',
-            title: 'Kho'
-          }"
+          :routerInfo="RouterLinkInfo.Stock"
         />
-        <BaseRouterLink 
+        <BaseRouterLink
           :flag="sidebarFlag"
-          :routerInfo="{
-            href: '/tools',
-            icon: 'mi-sidebar-tools',
-            title: 'Công cụ dụng cụ'
-          }"
+          :routerInfo="RouterLinkInfo.Tools"
         />
-        <BaseRouterLink 
+        <BaseRouterLink
           :flag="sidebarFlag"
-          :routerInfo="{
-            href: '/fixed-assets',
-            icon: 'mi-sidebar-fixed-assets',
-            title: 'Tài sản cố định'
-          }"
+          :routerInfo="RouterLinkInfo.FixedAssets"
         />
-        <BaseRouterLink 
+        <BaseRouterLink
           :flag="sidebarFlag"
-          :routerInfo="{
-            href: '/employee',
-            icon: 'mi-sidebar-employee',
-            title: 'Nhân viên',
-          }"
+          :routerInfo="RouterLinkInfo.Employee"
         />
-        <BaseRouterLink 
+        <BaseRouterLink
           :flag="sidebarFlag"
-          :routerInfo="{
-            href: '/tax',
-            icon: 'mi-sidebar-tax',
-            title: 'Thuế',
-          }"
+          :routerInfo="RouterLinkInfo.Tax"
         />
-        <BaseRouterLink 
+        <BaseRouterLink
           :flag="sidebarFlag"
-          :routerInfo="{
-            href: '/price',
-            icon: 'mi-sidebar-price',
-            title: 'Giá thành',
-          }"
+          :routerInfo="RouterLinkInfo.Price"
         />
-        <BaseRouterLink 
+        <BaseRouterLink
           :flag="sidebarFlag"
-          :routerInfo="{
-            href: '/general',
-            icon: 'mi-sidebar-general',
-            title: 'Ngân sách',
-          }"
+          :routerInfo="RouterLinkInfo.General"
         />
-        
       </div>
     </div>
   </div>
@@ -134,18 +83,22 @@
 .shown {
   display: block;
 }
-
 </style>
 
 <script>
-import BaseRouterLink from '../base/BaseRouterLink.vue';
-import BaseTrigger from '../base/BaseTrigger.vue';
+import BaseRouterLink from "../base/BaseRouterLink.vue";
+import BaseTrigger from "../base/BaseTrigger.vue";
+import { RouterLinkInfo } from "../../resources/MISAConst";
+
 export default {
   components: { BaseRouterLink, BaseTrigger },
   name: "TheMenu",
   computed: {
     sidebarFlag: function() {
       return this.$store.state.event.sidebarFlag;
+    },
+    RouterLinkInfo() {
+      return RouterLinkInfo;
     }
   },
   methods: {
@@ -155,7 +108,7 @@ export default {
      */
     triggerClick() {
       this.$store.dispatch("event/toggleSidebar");
-    }
-  }
+    },
+  },
 };
 </script>

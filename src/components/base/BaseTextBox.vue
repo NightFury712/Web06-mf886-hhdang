@@ -10,6 +10,7 @@
         :class="['text-box', {'border-red' : !formFlag[inputInfo.name]}]"
         :style="'width: ' + inputInfo.width + 'px'"
         @mouseover="mouseOver($event)"
+        @keydown.shift.tab.exact="TabFirst()"
       />
       <span 
         class="tooltiptext" 
@@ -31,6 +32,7 @@ import {HandlerTooltip} from "../../js/tooltip"
 export default {
   name: "BaseTextBox",
   mixins: [validateForm, FormatFunction, HandlerTooltip],
+  emits: ["TabFirst"],
   props: {
     inputInfo: Object,
   },
@@ -61,7 +63,14 @@ export default {
      */
     mouseOver(position) {
       this.mousePosition = this.getMousePosition(position);
-    }
+    },
+    /**
+     * Xử lý sự kiện tránh tab ra ngoài form
+     * Author: HHDang (20/08/2021)
+     */
+    TabFirst() {
+      this.$emit("TabFirst");
+    },
   },
   mounted() {
     // lưu ref cho mỗi textbox

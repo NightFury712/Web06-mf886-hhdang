@@ -1,5 +1,5 @@
 <template>
-  <div class="paging-bar" v-show="!(pageInfomation.totalRecord === 0)">
+  <div class="paging-bar" v-show="isShow()">
     <div class="paging-numtotal">
       Tổng số: <b>{{ pageInfomation.totalRecord }}</b> bản ghi
     </div>
@@ -138,6 +138,19 @@ export default {
     inputChange(e) {
       this.$emit("input", e);
     },
+    /**
+     * Hàm xử lý ẩn thanh Pagination khi không có dữ liệu
+     * Author: HHDang (18/08/2021)
+     */
+    isShow() {
+      if(!this.pageInfomation.totalRecord) {
+        return false;
+      } 
+      if(this.pageInfomation.totalRecord === 0) {
+        return false;
+      }
+      return true;
+    }
   },
   created() {
     this.currentPageSize = this.pageInfomation.pageSize;

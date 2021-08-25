@@ -1,6 +1,6 @@
 <template>
   <div class="container-not-found middle-sticky">
-    <div class="icon"></div>
+    <img src="../../assets/content/img/bg_report_nodata.76e50bd8.svg">
     <div class="title">Không có dữ liệu</div>
   </div>
 </template>
@@ -8,6 +8,7 @@
 <script>
 export default {
   name: "BaseDataNF",
+
 }
 </script>
 

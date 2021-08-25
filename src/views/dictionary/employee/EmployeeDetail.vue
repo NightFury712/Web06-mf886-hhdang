@@ -6,6 +6,8 @@
       v-if="popupFlag.dialog"
       :btnCancelDialog="btnCancelDialog"
     /> -->
+    <div tabindex="0"></div>
+    <div tabindex="1"></div>
     <BasePopupInfo 
       v-if="popupFlag.dialog"
       :btnCancelDialog="btnCancelDialog"
@@ -41,6 +43,7 @@
               title: 'Là khách hàng'
             }"
             style="margin: 0 20px"
+            v-tooltip="'Tính năng đang phát triển'"
           />
           <BaseCheckbox 
             :checkboxInfo="{
@@ -49,6 +52,7 @@
               title: 'Là nhà cung cấp'
             }"
             style="margin: 0 20px"
+            v-tooltip="'Tính năng đang phát triển'"
           />
         </div>
         <div class="btn-close-dialog">
@@ -76,7 +80,10 @@
                     <span class="title">Mã</span>
                     <span class="star">*</span>
                   </div>
-                  <BaseTextBox :inputInfo="inputInfo.EmployeeCode" />
+                  <BaseTextBox 
+                    :inputInfo="inputInfo.EmployeeCode" 
+                    @TabFirst="TabFirst()"
+                  />
                 </div>
                 <div class="emp-info-item w-3/5">
                   <div class="emp-info-title">
@@ -246,6 +253,7 @@
                 @click="btnStore()"
                 tabindex="20"
                 v-tooltip.bottom="'Cất (Ctrl + S)'"
+                ref="btnStore"
               >
                 Cất
               </button>
@@ -259,12 +267,12 @@
                 tabindex="21"
                 :isShow="loadingBtn.save"
                 v-tooltip.bottom="'Cất và thêm (Ctrl + Shift + S)'"
+                @tabEnd="tabEnd()"
               />
             </div>
           </div>
         </div>
       </div>
-      
     </div>
   </div>
 </template>
@@ -285,8 +293,8 @@ import { FormatFunction } from '../../../js/common'
 import { validateForm } from '../../../js/validate'
 import { Toast } from '../../../js/toast'
 import { Pagination } from '../../../js/pagination'
-import { MISACode, MISAFormMode, Gender, GenderName } from '../../../Enums/MISAEnums'
-import { Popup, DisplayName, Validate } from '../../../resources/MISAConst'
+import { MISACode, MISAFormMode, Gender, GenderName } from '../../../enumerables/MISAEnums'
+import { Popup, DisplayName, Validate, Messenger } from '../../../resources/MISAConst'
 import BaseRadioButton from '../../../components/base/BaseRadioButton.vue';
 import BaseCheckbox from '../../../components/base/BaseCheckbox.vue';
 import BasePopupInfo from '../../../components/base/BasePopupInfo.vue';
@@ -372,7 +380,7 @@ export default {
           name: "IdentityNumber",
           type: "text",
           tabindex: 9,
-          maxLength:"25",
+          maxLength:"20",
           tooltip: `${DisplayName.IdentityNumber} ${Validate.NotValid}`
         },
         IdentityDate: {
@@ -401,14 +409,14 @@ export default {
           name: "PhoneNumber",
           type: "text",
           tabindex: 13,
-          maxLength:"50",
+          maxLength:"20",
           tooltip: `${DisplayName.PhoneNumber} ${Validate.NotValid}`
         },
         TelephoneNumber: {
           name: "TelephoneNumber",
           type: "text",
           tabindex: 14,
-          maxLength:"50",
+          maxLength:"20",
           tooltip: `${DisplayName.TelephoneNumber} ${Validate.NotValid}`
         },
         BankAccountNumber: {
@@ -498,13 +506,21 @@ export default {
     }
   },
   methods: {
-    ...mapActions("emp", ["add", "edit", "loadData", "setEmployee", "getNewEmployeeCode"]),
+    ...mapActions("emp", [
+      "add", 
+      "edit", 
+      "loadData", 
+      "setEmployee", 
+      "getNewEmployeeCode",
+      "setPageNum",
+      ]),
     ...mapActions("event", [
       "toggleDialog", 
       "showSpinner",
       "hideSpinner", 
       "setFormFlagTrue", 
-      "togglePopup"
+      "togglePopup",
+      "hideCbx"
     ]),
     /**
      * Khi ấn nút đóng form :
@@ -513,12 +529,14 @@ export default {
      * Author: HHDang(18/08/2021)
      */
     closeDialog() {
+      this.hideCbx("addDepartment")
       if(this.compareData()) {
         this.toggleDialog()
       } else {
         this.togglePopup(this.popup.dialog.flagName);
       }
     },
+
     /**
      * Hàm xử lý khi nhấn nút đóng của popup
      * Author: HHDang(18/08/2021)
@@ -531,21 +549,7 @@ export default {
       // Đóng form nhập liệu
       this.toggleDialog();
     },
-    /**
-     * Hàm xử lý khi thêm mới hoặc sửa (nhấn nút cất)
-     * Author: HHDang(18/08/2021)
-     */
-    async btnStore() {
-      const ref = this.formRef
-      const flag = await this.handerData(ref);
-      // Nếu thực hiện thành công
-      if(flag) {
-        // Đóng form nhập liệu
-        this.toggleDialog();
-        // Load lại dữ liệu
-        this.getPageNum();
-      }
-    },
+
     /**
      * Hàm xử lý sự kiện khi đóng popup báo lỗi
      * Author: HHDang (19/8/2021)
@@ -560,6 +564,23 @@ export default {
       // Focus vào trường bị lỗi
       this.formRef[fieldName].focus();
     },
+
+    /**
+     * Hàm xử lý khi thêm mới hoặc sửa (nhấn nút cất)
+     * Author: HHDang(18/08/2021)
+     */
+    async btnStore() {
+      this.hideCbx("addDepartment")
+      const ref = this.formRef
+      const flag = await this.handerData(ref);
+      // Nếu thực hiện thành công
+      if(flag) {
+        // Đóng form nhập liệu
+        this.toggleDialog();
+        // Load lại dữ liệu
+        this.getPageNum();
+      }
+    },
     /**
      * Khi nhấn nút cất và thêm thì:
      * + Thêm mới (hoặc sửa)
@@ -568,6 +589,7 @@ export default {
      * Author: HHDang (19/8/2021)
      */
     async btnStoreAndAdd() {
+      this.hideCbx("addDepartment")
       const ref = this.formRef
       const flag = await this.handerData(ref);
       if(flag) {
@@ -599,7 +621,7 @@ export default {
       this.flagPost = true;
       const flag = this.formFlag
       this.employeeProps.forEach((item) => {
-        flag[item] = this.validateOption(item, ref[item].value.trim());
+        flag[item] = this.validateOption(item, ref[item].value?.trim());
         this.flagPost &= flag[item];
       })
       // Kiểm tra tính hợp lệ của tất cả các trường
@@ -653,6 +675,9 @@ export default {
       this.hideSpinner()
       // Thêm mới thành công sẽ đóng form và đưa ra thông báo
       if(result.MISACode === MISACode.Created) {
+        // Thêm mới thành công thì quay lại trang đầu tiên
+        this.setPageNum(0);
+        // Hiển thị toast thông báo
         this.toast({
           message: result.Messenger,
           type: 'success',
@@ -675,7 +700,7 @@ export default {
       else {
         // Có lỗi xảy ra sẽ có thông báo hiển thị lỗi
         this.toast({
-          message: result.Messenger,
+          message: Messenger.Exception,
           type: 'error',
           duration: 2000
         })
@@ -718,7 +743,7 @@ export default {
       else {
         // Thất bại sẽ đưa ra thông báo lỗi
         this.toast({
-          message: result.Messenger,
+          message: Messenger.Exception,
           type: 'error',
           duration: 2000
         });
@@ -747,9 +772,9 @@ export default {
       // Format lại dữ liệu đầu vào 
       this.employeeProps.forEach((item) => {
         if(item == "DateOfBirth" || item == "IdentityDate") {
-          newEmployee[item] = this.formatOption(item, ref[item].currentValue, 2);
+          newEmployee[item] = this.formatOption(item, ref[item].value, 2);
         } else {
-          newEmployee[item] = this.formatOption(item, ref[item].value.trim(), 2);
+          newEmployee[item] = this.formatOption(item, ref[item].value?.trim(), 2);
         }
       })
       newEmployee.Gender = this.genderValue;
@@ -759,29 +784,32 @@ export default {
      * Binding dữ liệu lên bảng
      * Author: HHDang (18/08/2021)
      */
-    async bindingData() {
+    bindingData() {
       const ref = this.formRef
       ref.EmployeeCode.focus();
-      const newCode = await this.getNewEmployeeCode();
+      let newCode;
+      newCode = this.newEmployeeCode;
       // Binding dữ liệu lên bảng
       this.employeeProps.forEach(async (item) => {
         let valueBinding = '';
         
-        if(this.formMode.status === 0 && item == "EmployeeCode") 
+        if(this.formMode.status === MISAFormMode.Save && item == "EmployeeCode") 
         {
           ref[item].value = newCode;
-        } 
+        }
         else if(item == "DateOfBirth" || item == "IdentityDate") 
         {
           // Do nothing
         }
-        else 
+        else
         {
           valueBinding = this.getEmployeeDetail ? this.formatOption(item, this.getEmployeeDetail[item], 1) : '';
           ref[item].value = valueBinding;
         }
       })
-      this.currentEmployee = this.initDataObj();
+      this.$nextTick(() => {
+        this.currentEmployee = this.initDataObj();
+      });
     },
     /**
      * So sánh dữ liệu ban đầu và dữ liệu sau khi nhập liệu
@@ -796,11 +824,25 @@ export default {
         return false;
       }
     },
+    /**
+     * Xử lý sự kiện tránh tab ra ngoài form
+     * Author: HHDang (20/08/2021)
+     */
+    tabEnd() {
+      this.$refs.btnStore.focus();
+    },
+    /**
+     * Xử lý sự kiện tránh tab ra ngoài form
+     * Author: HHDang (20/08/2021)
+     */
+    TabFirst() {
+      this.formRef.EmployeeName.focus();
+    }
   },
   created() {
     // Bind dữ liệu cho các trường ngày/tháng/năm
-    this.date.DateOfBirth = this.getEmployeeDetail ? this.formatDate(this.getEmployeeDetail.DateOfBirth, 2) : ''
-    this.date.IdentityDate = this.getEmployeeDetail ? this.formatDate(this.getEmployeeDetail.IdentityDate, 2) : ''
+    this.date.DateOfBirth = this.getEmployeeDetail ? this.formatDate(this.getEmployeeDetail.DateOfBirth, 2) : null
+    this.date.IdentityDate = this.getEmployeeDetail ? this.formatDate(this.getEmployeeDetail.IdentityDate, 2) : null
     // Gán giá trị cho radio button ban đầu là option đầu tiên
     let gender = this.getEmployeeDetail ? this.getEmployeeDetail.Gender : 0;
     this.genderValue = gender;
